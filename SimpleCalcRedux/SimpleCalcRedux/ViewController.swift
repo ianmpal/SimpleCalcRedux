@@ -11,8 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     
     var isTyping = false
-    var firstNumber = 0
-    var secondNumber = 0
+    var firstNumber = 0.0
+    var secondNumber = 0.0
     var operation = ""
     
 
@@ -31,20 +31,27 @@ class ViewController: UIViewController {
     
     
     @IBAction func calculationTapped(sender: AnyObject) {
+        
         isTyping = false
-        firstNumber = Int(calculatorDisplay.text!)!
+        firstNumber = Double(calculatorDisplay.text!)!
         operation = (sender.currentTitle!)!
     }
     
     @IBAction func equalsTapped(sender: AnyObject) {
         isTyping = false
-        var result = 0
-        secondNumber = Int(calculatorDisplay.text!)!
+        var result = 0.0
+        secondNumber = Double(calculatorDisplay.text!)!
         
         if operation == "+" {
             result = firstNumber + secondNumber
         } else if operation == "-" {
             result = firstNumber - secondNumber
+        } else if operation == "*" {
+            result = firstNumber * secondNumber
+        } else if operation == "/" {
+            result = firstNumber / secondNumber
+        } else if operation == "%" {
+            result = firstNumber % secondNumber
         }
         
         calculatorDisplay.text = "\(result)"
