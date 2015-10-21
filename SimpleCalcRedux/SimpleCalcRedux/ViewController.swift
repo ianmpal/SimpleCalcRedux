@@ -31,6 +31,7 @@ class ViewController: UIViewController {
     
 
     @IBAction func clearButton(sender: UIButton) {
+        isTyping = false
         calculatorDisplay!.text = "0.0"
     }
     
@@ -39,6 +40,7 @@ class ViewController: UIViewController {
         isTyping = false
         firstNumber = Double(calculatorDisplay.text!)!
         operation = (sender.currentTitle!)!
+        calculatorDisplay!.text = sender.currentTitle
     }
     
     @IBAction func equalsTapped(sender: AnyObject) {
