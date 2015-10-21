@@ -29,6 +29,10 @@ class ViewController: UIViewController {
         }
     }
     
+
+    @IBAction func clearButton(sender: UIButton) {
+        calculatorDisplay!.text = "0.0"
+    }
     
     @IBAction func calculationTapped(sender: AnyObject) {
         
