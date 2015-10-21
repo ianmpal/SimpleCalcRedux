@@ -19,7 +19,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var calculatorDisplay: UILabel!
     
     @IBAction func buttonOne(sender: UIButton) {
-        var number = sender.currentTitle
+        let number = sender.currentTitle
         
         if isTyping {
             calculatorDisplay!.text = calculatorDisplay!.text! + number!
@@ -31,9 +31,23 @@ class ViewController: UIViewController {
     
     
     @IBAction func calculationTapped(sender: AnyObject) {
+        isTyping = false
+        firstNumber = Int(calculatorDisplay.text!)!
+        operation = (sender.currentTitle!)!
     }
     
     @IBAction func equalsTapped(sender: AnyObject) {
+        isTyping = false
+        var result = 0
+        secondNumber = Int(calculatorDisplay.text!)!
+        
+        if operation == "+" {
+            result = firstNumber + secondNumber
+        } else if operation == "-" {
+            result = firstNumber - secondNumber
+        }
+        
+        calculatorDisplay.text = "\(result)"
     }
     
     override func viewDidLoad() {
