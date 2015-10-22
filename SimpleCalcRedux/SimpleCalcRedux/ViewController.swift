@@ -10,7 +10,7 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var isTyping = false
+    var isTyping = true
     var firstNumber = 0.0
     var secondNumber = 0.0
     var operation = ""
@@ -29,20 +29,23 @@ class ViewController: UIViewController {
     
     @IBAction func clearButton(sender: UIButton) {
         isTyping = false
-        calculatorDisplay!.text = "0.0"
+        calculatorDisplay!.text = ""
         resultsArray = []
     }
     
     @IBAction func buttonOne(sender: UIButton) {
-        NSLog("Button pushed")
         let number = sender.currentTitle
-        NSLog(number!)
         
         if isTyping {
-            calculatorDisplay!.text = calculatorDisplay!.text! + number!
+            let newNum = calculatorDisplay!.text! + number!
+            calculatorDisplay!.text = newNum
+            firstNumber = Double(newNum)!
+            NSLog(resultsArray.description)
         } else {
             calculatorDisplay.text = number
-            isTyping = true
+            resultsArray.append(Double(number!)!)
+            NSLog("else statement" + resultsArray.description)
+
         }
     }
     
@@ -50,7 +53,28 @@ class ViewController: UIViewController {
     @IBAction func calculationTapped(sender: AnyObject) {
         operation = (sender.currentTitle!)!
         isTyping = false
-        firstNumber = Double(calculatorDisplay.text!)!
+    }
+    
+    @IBAction func operandButton(sender: UIButton) {
+        NSLog("Operand button pressed")
+        isTyping = false
+        operation = (sender.currentTitle!)
+        var result = 0.0
+        
+        
+        switch operation {
+        case "count":
+            resultsArray.append(firstNumber)
+            NSLog("Hit count")
+        case "fact":
+            result = fact(firstNumber)
+            resultsArray = []
+            calculatorDisplay.text = "\(result)"
+        default:
+            calculatorDisplay.text = "\(result)"
+            
+        }
+        
     }
     
     @IBAction func equalsTapped(sender: AnyObject) {
@@ -63,87 +87,43 @@ class ViewController: UIViewController {
             isTyping = false
             secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber + secondNumber
+            resultsArray = []
         case "-":
             isTyping = false
             secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber - secondNumber
+            resultsArray = []
         case "*":
             isTyping = false
             secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber * secondNumber
+            resultsArray = []
         case "/":
             isTyping = false
             secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber / secondNumber
+            resultsArray = []
         case "%":
             isTyping = false
             secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber % secondNumber
+            resultsArray = []
         case "count":
-            NSLog("hit count on equals")
-            var arraySize = Double(resultsArray.count)
-            NSLog("Array Size" + String(arraySize))
-            for num in resultsArray {
-                NSLog(String(num))
-            }
             result = Double(resultsArray.count)
+            NSLog(String(resultsArray.description))
+            resultsArray = []
         case "avg":
             var sum = 0.0
             for num in resultsArray {
                 sum += num
             }
             result = sum / Double(resultsArray.count)
+            resultsArray = []
         default:
             calculatorDisplay.text = "\(result)"
 
         }
         calculatorDisplay.text = "\(result)"
-        
-    }
-    
-    
-    
-    
-    @IBAction func operandButton(sender: UIButton) {
-        NSLog("Operand button pressed")
-        isTyping = false
-        operation = (sender.currentTitle!)
-        var result = 0.0
-        firstNumber = Double(calculatorDisplay.text!)!
-        
-       
-        switch operation {
-        case "count":
-            resultsArray.append(firstNumber)
-            NSLog("Hit count")
-        case "fact":
-            result = fact(firstNumber)
-            calculatorDisplay.text = "\(result)"
-        case "avg":
-            resultsArray.append(firstNumber)
-        default:
-            calculatorDisplay.text = "\(result)"
-            
-        }
-        
-        
-//        
-//        firstNumber = Double(calculatorDisplay.text!)!
-//        if operation == "count" {
-//            resultsArray.append(firstNumber)
-//            calculatorDisplay!.text = sender.currentTitle
-//            
-//        } else if operation == "fact" {
-//            resultsArray.append(firstNumber)
-//            calculatorDisplay!.text = sender.currentTitle
-//        }
-//        else {
-//            isTyping = false
-//            firstNumber = Double(calculatorDisplay.text!)!
-//            calculatorDisplay!.text = sender.currentTitle
-//        }
-        
-        
         
     }
     
