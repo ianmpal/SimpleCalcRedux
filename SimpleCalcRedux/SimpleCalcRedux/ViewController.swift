@@ -14,12 +14,29 @@ class ViewController: UIViewController {
     var firstNumber = 0.0
     var secondNumber = 0.0
     var operation = ""
+    var resultsArray = [Double]()
     
 
     @IBOutlet weak var calculatorDisplay: UILabel!
     
+    func fact(n: Double) -> Double {
+        if n == 0 {
+            return 1
+        } else {
+            return n * fact(n-1)
+        }
+    }
+    
+    @IBAction func clearButton(sender: UIButton) {
+        isTyping = false
+        calculatorDisplay!.text = "0.0"
+        resultsArray = []
+    }
+    
     @IBAction func buttonOne(sender: UIButton) {
+        NSLog("Button pushed")
         let number = sender.currentTitle
+        NSLog(number!)
         
         if isTyping {
             calculatorDisplay!.text = calculatorDisplay!.text! + number!
@@ -30,38 +47,107 @@ class ViewController: UIViewController {
     }
     
 
-    @IBAction func clearButton(sender: UIButton) {
-        isTyping = false
-        calculatorDisplay!.text = "0.0"
-    }
-    
     @IBAction func calculationTapped(sender: AnyObject) {
-        
+        operation = (sender.currentTitle!)!
         isTyping = false
         firstNumber = Double(calculatorDisplay.text!)!
-        operation = (sender.currentTitle!)!
-        calculatorDisplay!.text = sender.currentTitle
     }
     
     @IBAction func equalsTapped(sender: AnyObject) {
         isTyping = false
         var result = 0.0
-        secondNumber = Double(calculatorDisplay.text!)!
         
-        if operation == "+" {
+        
+        switch operation {
+        case "+":
+            isTyping = false
+            secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber + secondNumber
-        } else if operation == "-" {
+        case "-":
+            isTyping = false
+            secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber - secondNumber
-        } else if operation == "*" {
+        case "*":
+            isTyping = false
+            secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber * secondNumber
-        } else if operation == "/" {
+        case "/":
+            isTyping = false
+            secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber / secondNumber
-        } else if operation == "%" {
+        case "%":
+            isTyping = false
+            secondNumber = Double(calculatorDisplay.text!)!
             result = firstNumber % secondNumber
+        case "count":
+            NSLog("hit count on equals")
+            var arraySize = Double(resultsArray.count)
+            NSLog("Array Size" + String(arraySize))
+            for num in resultsArray {
+                NSLog(String(num))
+            }
+            result = Double(resultsArray.count)
+        case "avg":
+            var sum = 0.0
+            for num in resultsArray {
+                sum += num
+            }
+            result = sum / Double(resultsArray.count)
+        default:
+            calculatorDisplay.text = "\(result)"
+
         }
-        
         calculatorDisplay.text = "\(result)"
+        
     }
+    
+    
+    
+    
+    @IBAction func operandButton(sender: UIButton) {
+        NSLog("Operand button pressed")
+        isTyping = false
+        operation = (sender.currentTitle!)
+        var result = 0.0
+        firstNumber = Double(calculatorDisplay.text!)!
+        
+       
+        switch operation {
+        case "count":
+            resultsArray.append(firstNumber)
+            NSLog("Hit count")
+        case "fact":
+            result = fact(firstNumber)
+        case "avg":
+            resultsArray.append(firstNumber)
+        default:
+            calculatorDisplay.text = "\(result)"
+            
+        }
+        calculatorDisplay.text = "\(result)"
+        
+        
+//        
+//        firstNumber = Double(calculatorDisplay.text!)!
+//        if operation == "count" {
+//            resultsArray.append(firstNumber)
+//            calculatorDisplay!.text = sender.currentTitle
+//            
+//        } else if operation == "fact" {
+//            resultsArray.append(firstNumber)
+//            calculatorDisplay!.text = sender.currentTitle
+//        }
+//        else {
+//            isTyping = false
+//            firstNumber = Double(calculatorDisplay.text!)!
+//            calculatorDisplay!.text = sender.currentTitle
+//        }
+        
+        
+        
+    }
+    
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
