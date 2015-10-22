@@ -118,13 +118,13 @@ class ViewController: UIViewController {
             NSLog("Hit count")
         case "fact":
             result = fact(firstNumber)
+            calculatorDisplay.text = "\(result)"
         case "avg":
             resultsArray.append(firstNumber)
         default:
             calculatorDisplay.text = "\(result)"
             
         }
-        calculatorDisplay.text = "\(result)"
         
         
 //        
