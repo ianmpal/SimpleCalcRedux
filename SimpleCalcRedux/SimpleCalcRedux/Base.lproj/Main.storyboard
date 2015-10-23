@@ -217,7 +217,7 @@
                                 <rect key="frame" x="145" y="509" width="84" height="30"/>
                                 <animations/>
                                 <fontDescription key="fontDescription" type="system" pointSize="24"/>
-                                <state key="normal" title="Clear">
+                                <state key="normal" title="CLEAR">
                                     <color key="titleColor" red="1" green="0.012950790821705138" blue="0.039988377547021559" alpha="1" colorSpace="calibratedRGB"/>
                                 </state>
                                 <connections>

@@ -34,10 +34,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func buttonOne(sender: UIButton) {
-        NSLog("Button pushed")
         let number = sender.currentTitle
-        NSLog(number!)
-        
         if isTyping {
             calculatorDisplay!.text = calculatorDisplay!.text! + number!
         } else {
@@ -81,9 +78,6 @@ class ViewController: UIViewController {
             result = firstNumber % secondNumber
         case "count":
             resultsArray.append(Double(calculatorDisplay.text!)!)
-            for num in resultsArray {
-                NSLog(String(num))
-            }
             result = Double(resultsArray.count)
         case "avg":
             resultsArray.append(Double(calculatorDisplay.text!)!)
@@ -104,7 +98,6 @@ class ViewController: UIViewController {
     
     
     @IBAction func operandButton(sender: UIButton) {
-        NSLog("Operand button pressed")
         isTyping = false
         operation = (sender.currentTitle!)
         var result = 0.0
@@ -114,7 +107,6 @@ class ViewController: UIViewController {
         switch operation {
         case "count":
             resultsArray.append(firstNumber)
-            NSLog("Hit count")
         case "fact":
             result = fact(firstNumber)
             calculatorDisplay.text = "\(result)"
